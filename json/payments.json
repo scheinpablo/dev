@@ -1,13 +1,151 @@
 {
-  "_id": "17d2f468672154131022738d1b71f2e6",
-  "_rev": "1-7344d4dbc435a0e87926cad781d650dd",
-  "payment": {
-    "resourceId": "QZaDhgfN34hqSpQeU1y8SH6DuUuDNS2ImVhat5gp",
-    "iban": "G1KZ0VJ6T4FJI8YJE9TX",
-    "currency": "ARS",
-    "cashAccountType": "CurrentAccount",
-    "ammount": "1233,56",
-    "ownerName": "Valentin Sanchez",
-    "name": "Valu7"
-  }
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "_id": "17d2f468672154131022738d1b71f2e6",
+          "_rev": "1-7344d4dbc435a0e87926cad781d650dd",
+          "payment": {
+              "resourceId": "QZaDhgfN34hqSpQeU1y8SH6DuUuDNS2ImVhat5gp",
+              "iban": "G1KZ0VJ6T4FJI8YJE9TX",
+              "currency": "ARS",
+              "cashAccountType": "CurrentAccount",
+              "ammount": "1233,56",
+              "ownerName": "Valentin Sanchez",
+              "name": "Valu7"
+          }
+      }
+  ],
+  "required": [
+      "_id",
+      "_rev",
+      "payment"
+  ],
+  "properties": {
+      "_id": {
+          "$id": "#/properties/_id",
+          "type": "string",
+          "title": "The _id schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "17d2f468672154131022738d1b71f2e6"
+          ]
+      },
+      "_rev": {
+          "$id": "#/properties/_rev",
+          "type": "string",
+          "title": "The _rev schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "1-7344d4dbc435a0e87926cad781d650dd"
+          ]
+      },
+      "payment": {
+          "$id": "#/properties/payment",
+          "type": "object",
+          "title": "The payment schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+              {
+                  "resourceId": "QZaDhgfN34hqSpQeU1y8SH6DuUuDNS2ImVhat5gp",
+                  "iban": "G1KZ0VJ6T4FJI8YJE9TX",
+                  "currency": "ARS",
+                  "cashAccountType": "CurrentAccount",
+                  "ammount": "1233,56",
+                  "ownerName": "Valentin Sanchez",
+                  "name": "Valu7"
+              }
+          ],
+          "required": [
+              "resourceId",
+              "iban",
+              "currency",
+              "cashAccountType",
+              "ammount",
+              "ownerName",
+              "name"
+          ],
+          "properties": {
+              "resourceId": {
+                  "$id": "#/properties/payment/properties/resourceId",
+                  "type": "string",
+                  "title": "The resourceId schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "QZaDhgfN34hqSpQeU1y8SH6DuUuDNS2ImVhat5gp"
+                  ]
+              },
+              "iban": {
+                  "$id": "#/properties/payment/properties/iban",
+                  "type": "string",
+                  "title": "The iban schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "G1KZ0VJ6T4FJI8YJE9TX"
+                  ]
+              },
+              "currency": {
+                  "$id": "#/properties/payment/properties/currency",
+                  "type": "string",
+                  "title": "The currency schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "ARS"
+                  ]
+              },
+              "cashAccountType": {
+                  "$id": "#/properties/payment/properties/cashAccountType",
+                  "type": "string",
+                  "title": "The cashAccountType schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "CurrentAccount"
+                  ]
+              },
+              "ammount": {
+                  "$id": "#/properties/payment/properties/ammount",
+                  "type": "string",
+                  "title": "The ammount schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "1233,56"
+                  ]
+              },
+              "ownerName": {
+                  "$id": "#/properties/payment/properties/ownerName",
+                  "type": "string",
+                  "title": "The ownerName schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "Valentin Sanchez"
+                  ]
+              },
+              "name": {
+                  "$id": "#/properties/payment/properties/name",
+                  "type": "string",
+                  "title": "The name schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                      "Valu7"
+                  ]
+              }
+          },
+          "additionalProperties": true
+      }
+  },
+  "additionalProperties": true
 }
