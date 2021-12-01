@@ -1,0 +1,44 @@
+swagger: '2.0'
+info:
+  title: Campos Sensibles
+  x-ibm-name: campos-sensibles
+  version: 1.0.0
+schemes:
+  - https
+basePath: /patagonia-internal/sandbox/campos-sensibles
+produces:
+  - application/json
+consumes:
+  - application/json
+security:
+  - clientID: []
+securityDefinitions:
+  clientID:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
+x-ibm-configuration:
+  cors:
+    enabled: true
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  application-authentication:
+    certificate: false
+  servers:
+    - url: https://apic10-gw-gateway-apic.apic-demo-2d0b55edf479432d8c6c6dbab1f4d51c-0000.us-south.containers.appdomain.cloud/patagonia-internal/sandbox/campos-sensibles
+      description: ''
+      type:
+        - Production
+        - Development
+paths:
+  /jsonmap:
+    parameters: []
+    get:
+      responses:
+        '200':
+          schema:
+            type: string
+          description: success
+host: apic10-gw-gateway-apic.apic-demo-2d0b55edf479432d8c6c6dbab1f4d51c-0000.us-south.containers.appdomain.cloud

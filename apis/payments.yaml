@@ -1,0 +1,129 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: payments
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /entries:
+    get:
+      operationId: getEntries
+      x-openwhisk:
+        namespace: innovgro@ar.ibm.com_dev
+        action: read-payment-entries-sequence
+        package: cp4i-demos-pkg
+        url: >-
+          https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/read-payment-entries-sequence.json
+        auth: 89de6e00-7352-4fcc-aa45-2a7b84140947
+      responses:
+        '200':
+          description: A successful invocation response
+    put:
+      operationId: putEntries
+      x-openwhisk:
+        namespace: innovgro@ar.ibm.com_dev
+        action: save-payment-sequence
+        package: cp4i-demos-pkg
+        url: >-
+          https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/save-payment-sequence.json
+        auth: bcba93bd-a831-4ca1-8e31-9b62758b968b
+      responses:
+        '200':
+          description: A successful invocation response
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: false
+          schema:
+            type: object
+    delete:
+      operationId: deleteEntries
+      x-openwhisk:
+        namespace: innovgro@ar.ibm.com_dev
+        action: delete-payment-from-sequence
+        package: cp4i-demos-pkg
+        url: >-
+          https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/delete-payment-from-sequence.json
+        auth: ca7862e3-b84f-4b76-a809-5e90a2ff2442
+      responses:
+        '200':
+          description: A successful invocation response
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: false
+          schema:
+            type: object
+    patch:
+      operationId: patchEntries
+      x-openwhisk:
+        namespace: innovgro@ar.ibm.com_dev
+        action: update-payment-sequence
+        package: cp4i-demos-pkg
+        url: >-
+          https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/update-payment-sequence.json
+        auth: b0e34dd6-5a9e-438f-8da1-e3eed7217c7c
+      responses:
+        '200':
+          description: A successful invocation response
+x-ibm-configuration:
+  gateway: datapower-api-gateway
+  assembly:
+    execute:
+      - operation-switch:
+          case:
+            - operations:
+                - getEntries
+              execute:
+                - set-variable:
+                    actions:
+                      - set: message.headers.X-Require-Whisk-Auth
+                        value: 89de6e00-7352-4fcc-aa45-2a7b84140947
+                - invoke:
+                    target-url: >-
+                      https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/read-payment-entries-sequence.json
+                    verb: keep
+            - operations:
+                - putEntries
+              execute:
+                - set-variable:
+                    actions:
+                      - set: message.headers.X-Require-Whisk-Auth
+                        value: bcba93bd-a831-4ca1-8e31-9b62758b968b
+                - invoke:
+                    target-url: >-
+                      https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/save-payment-sequence.json
+                    verb: keep
+            - operations:
+                - deleteEntries
+              execute:
+                - set-variable:
+                    actions:
+                      - set: message.headers.X-Require-Whisk-Auth
+                        value: ca7862e3-b84f-4b76-a809-5e90a2ff2442
+                - invoke:
+                    target-url: >-
+                      https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/delete-payment-from-sequence.json
+                    verb: keep
+            - operations:
+                - patchEntries
+              execute:
+                - set-variable:
+                    actions:
+                      - set: message.headers.X-Require-Whisk-Auth
+                        value: b0e34dd6-5a9e-438f-8da1-e3eed7217c7c
+                - invoke:
+                    target-url: >-
+                      https://us-south.functions.appdomain.cloud/api/v1/web/innovgro@ar.ibm.com_dev/cp4i-demos-pkg/update-payment-sequence.json
+                    verb: keep
+          otherwise: []
+          title: whisk-invoke
+  cors:
+    enabled: false
+basePath: /payments

@@ -1,0 +1,153 @@
+swagger: '2.0'
+info:
+  description: This is a sample vehicle demo to show the Xapix Swagger / OpenAPI import feature.
+  version: 1.0.0
+  title: Xapix Vehicle Demo
+  contact:
+    email: support@xapix.io
+host: s3-eu-west-1.amazonaws.com
+basePath: /xapix-io-api-data/vehicle-demo
+schemes:
+  - https
+paths:
+  /variants.json:
+    get:
+      summary: All Variants
+      description: All car variants.
+      operationId: allVariants
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Variant'
+        '404':
+          description: Car not found
+  '/variants/{variant_id}.json':
+    get:
+      summary: Finds Variant by ID
+      description: The car variant IDs are proprietary.
+      operationId: findVariantById
+      produces:
+        - application/json
+      parameters:
+        - name: variant_id
+          in: path
+          description: Car variant ID.
+          required: true
+          type: string
+          x-example: QLM_KROSUS_4_DOORS_LIMO
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Variant'
+        '404':
+          description: Car not found
+  '/engines/{engine_id}.json':
+    get:
+      summary: Finds Engine by ID
+      description: The car engine IDs are proprietary.
+      operationId: findEngineById
+      produces:
+        - application/json
+      parameters:
+        - name: engine_id
+          in: path
+          description: Car engine ID.
+          required: true
+          type: integer
+          x-example: 547290
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Engine'
+        '404':
+          description: Engine not found
+  '/models/{model_id}.json':
+    get:
+      summary: Finds Model by ID
+      description: The car model IDs are proprietary.
+      operationId: findModelById
+      produces:
+        - application/json
+      parameters:
+        - name: model_id
+          in: path
+          description: Car model ID.
+          required: true
+          type: integer
+          x-example: 947432
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Model'
+        '404':
+          description: Model not found
+definitions:
+  Variant:
+    type: object
+    properties:
+      variant_id:
+        type: string
+        example: QLM_KROSUS_4_DOORS_LIMO
+      engine_type_id:
+        type: integer
+        example: 547290
+      base_price_EUR:
+        type: number
+        example: 23456.78
+      in_stock:
+        type: boolean
+        example: true
+      model_id:
+        type: integer
+        example: 947432
+      fuel_consumption_lkm:
+        type: number
+        example: 12.6
+      topspeed_kmh:
+        type: integer
+        example: 220
+      extras:
+        type: array
+        items:
+          type: string
+        example:
+          - FULL_CASCO
+          - LEATHER_SEATS_03
+  Model:
+    type: object
+    properties:
+      description:
+        type: string
+        example: Lore Ipsum donor set amet…
+      brand:
+        type: string
+        example: QLM
+      model:
+        type: string
+        example: Krosus
+  Engine:
+    type: object
+    properties:
+      power_hp:
+        type: string
+        example: 180
+      fuel_type:
+        type: string
+        example: Diesel
+      manufacturer:
+        type: string
+        example: Remedy Engines
+      price:
+        type: string
+        example: 4800
+externalDocs:
+  description: Find out more about Xapix
+  url: 'https://www.xapix.io'

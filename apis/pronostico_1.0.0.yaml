@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: pronostico
+  x-ibm-name: pronostico
+  description: >-
+    **Pronóstico a un día del Servicio Meteorológico Nacional de la República
+    Argentina.**
+
+
+
+    ![](https://www.smn.gob.ar/sites/all/themes/smn/img/logo.png)
+
+
+    Esta API entrega el pronóstico a un día de todas las ciudades de referencia
+    del SMN.
+  termsOfService: 'https://www.smn.gob.ar/descarga-de-datos'
+  contact:
+    name: Juan Perez
+    email: juan@perez.com.ar
+basePath: /pronostico
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: 'https://ws.smn.gob.ar/map_items/forecast/1'
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - invoke:
+          title: invoke
+          version: 2.0.0
+          verb: keep
+          target-url: $(target-url)
+          follow-redirects: false
+          timeout: 60
+          parameter-control:
+            type: blocklist
+            values: []
+          header-control:
+            type: blocklist
+            values: []
+          inject-proxy-headers: true
+      - parse:
+          version: 2.1.0
+          title: parse
+          parse-settings-reference:
+            default: apic-default-parsesettings
+      - redact:
+          version: 2.0.0
+          title: redact
+          redactions:
+            - action: remove
+              path: $.**.id
+            - action: remove
+              path: $.**.zoom
+            - action: remove
+              path: $.**.updated
+          root: message.body
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+schemes:
+  - https
+externalDocs:
+  url: 'https://www.smn.gob.ar/clima/vigilancia'
+tags:
+  - name: clima
+    description: APIs relacionadas al clima

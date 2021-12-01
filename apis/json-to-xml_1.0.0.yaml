@@ -1,0 +1,172 @@
+swagger: '2.0'
+info:
+  title: JSON to XML
+  x-ibm-name: json-to-xml
+  version: 1.0.0
+  description: Ejemplo de conversión del JSON a XML // Converting JSON to XML sample
+schemes:
+  - https
+basePath: /json-to-xml
+security:
+  - clientID: []
+securityDefinitions:
+  clientID:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: 'https://apictutorials.mybluemix.net/branches'
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - invoke:
+          title: invoke
+          version: 2.0.0
+          verb: keep
+          target-url: $(target-url)
+          follow-redirects: false
+          timeout: 60
+          parameter-control:
+            type: blocklist
+            values: []
+          header-control:
+            type: blocklist
+            values: []
+          inject-proxy-headers: true
+      - parse:
+          version: 2.0.0
+          title: parse
+          parse-settings-reference:
+            default: apic-default-parsesettings
+      - json-to-xml:
+          version: 2.0.0
+          title: json-to-xml
+          root-element-name: json
+          always-output-root-element: false
+          unnamed-element-name: element
+    catch: []
+  application-authentication:
+    certificate: false
+  activity-log:
+    enabled: true
+    error-content: header
+    success-content: activity
+definitions:
+  branch:
+    type: object
+    additionalProperties: false
+    properties:
+      address:
+        $ref: '#/definitions/address'
+        properties: {}
+        description: Dirección de la sucursal
+      type:
+        type: string
+        description: Tipo de sucursal
+        example: atm
+      id:
+        type: string
+        description: Identificador de la sucursal
+        example: 9d72ece0-7e7b-11e5-9038-55f9f9c08c06
+  address:
+    type: object
+    description: The format of the address object
+    additionalProperties: false
+    properties:
+      street1:
+        type: string
+        description: Primera linea de direccion
+        example: Av de las Olimpiadas 760
+      street2:
+        type: string
+        description: Segunda linea de direccion
+        example: esquina Falucho
+      city:
+        type: string
+        description: Ciudad
+        example: Mar del Plata
+      state:
+        type: string
+        description: Provincia
+        example: Buenos Aires
+      zip_code:
+        type: string
+        description: Codigo Postal
+        example: '7608'
+paths:
+  /details:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/branch'
+      consumes: []
+      produces: []
+  /:
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    put:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    post:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    delete:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    options:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    head:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    patch:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []

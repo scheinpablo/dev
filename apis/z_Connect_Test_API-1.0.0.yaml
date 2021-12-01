@@ -1,0 +1,74 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: z/Connect Test API
+  x-ibm-name: z-connect-test-api
+  description: |-
+    Ejemplo de una API que utiliza z/OS Connect EE para acceder al Z.
+
+    Requiere conexión a la red interna de IBM.
+  contact:
+    name: Ceci Bel
+    email: belcecilia@ar.ibm.com
+basePath: /z-connect-test-api
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: http://cap-sg-prd-2.securegateway.appdomain.cloud:18835/catalogManagerV2/items
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - invoke:
+          title: invoke
+          version: 2.0.0
+          verb: keep
+          target-url: $(target-url)/$(request.headers.articleid)
+          follow-redirects: false
+          timeout: 60
+          parameter-control:
+            type: blocklist
+            values: []
+          header-control:
+            type: blocklist
+            values: []
+          inject-proxy-headers: true
+          backend-type: detect
+          graphql-send-type: detect
+  servers:
+    - url: https://apic10-gw-gateway-cp4i.show-integration-26562a7d6831df3dfa02975385757d2d-0000.us-south.containers.appdomain.cloud/innovation-team/sandbox/z-connect-test-api
+paths:
+  /articles:
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+      parameters: []
+    post:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+    parameters:
+      - name: articleid
+        required: true
+        in: header
+        description: 'Range: int numbers from 10 to 200'
+        type: number
+schemes:
+  - https
+parameters: {}
