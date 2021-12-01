@@ -1,0 +1,13 @@
+{
+  "_id": "17d2f468672154131022738d1b71f2e6",
+  "_rev": "1-7344d4dbc435a0e87926cad781d650dd",
+  "payment": {
+    "resourceId": "QZaDhgfN34hqSpQeU1y8SH6DuUuDNS2ImVhat5gp",
+    "iban": "G1KZ0VJ6T4FJI8YJE9TX",
+    "currency": "ARS",
+    "cashAccountType": "CurrentAccount",
+    "ammount": "1233,56",
+    "ownerName": "Valentin Sanchez",
+    "name": "Valu7"
+  }
+}
